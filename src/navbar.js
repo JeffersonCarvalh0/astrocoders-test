@@ -49,7 +49,6 @@ const NavBar = props => {
             border-radius: 4px;
             height: 46px;
             display: flex;
-            transition: background 100ms ease-in, border 100ms ease-out;
             ${ props => props.clicked && css`
                 background: rgba(255,255,255,1);
                 border: 1px solid rgba(0,0,0,0.12);
