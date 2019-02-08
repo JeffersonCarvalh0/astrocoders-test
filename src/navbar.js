@@ -89,7 +89,7 @@ const NavBar = props => {
     const [clicked, setClicked] = useState(false);
 
     return (
-        <StyledAppBar posititon="static" color="inherit">
+        <StyledAppBar color="inherit">
             <StyledToolbar>
                 <StyledMenuIconButton> <MenuIcon /> </StyledMenuIconButton>
                 <a href="/">
