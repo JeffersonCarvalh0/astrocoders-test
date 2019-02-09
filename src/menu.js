@@ -1,9 +1,65 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Fab } from '@material-ui/core';
+import { Drawer, Fab, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import InboxIcon from '@material-ui/icons/Inbox';
+import StarredIcon from '@material-ui/icons/Star';
+import SnoozedIcon from '@material-ui/icons/AccessTime';
+import ImportantIcon from '@material-ui/icons/LabelImportant';
+import SentIcon from '@material-ui/icons/Send';
+import DraftsIcon from '@material-ui/icons/InsertDriveFile';
 
 import create from './create.png';
+
+const ClippedDrawer = props => {
+    const StyledDrawer = styled(Drawer)`
+        && {
+            & .paper {
+                border-right: none;
+                position: inherit;
+            }
+        }
+    `;
+
+    return (
+        <StyledDrawer
+            variant="permanent"
+            classes={{ paper: "paper" }}
+        >
+            <List>
+                <ListItem button>
+                    <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                    <ListItemText primary={"Inbox"}> </ListItemText>
+                </ListItem>
+
+                <ListItem button>
+                    <ListItemIcon> <StarredIcon /> </ListItemIcon>
+                    <ListItemText> Starred </ListItemText>
+                </ListItem>
+
+                <ListItem button>
+                    <ListItemIcon> <SnoozedIcon /> </ListItemIcon>
+                    <ListItemText> Snoozed </ListItemText>
+                </ListItem>
+
+                <ListItem button>
+                    <ListItemIcon> <ImportantIcon /> </ListItemIcon>
+                    <ListItemText> Important </ListItemText>
+                </ListItem>
+
+                <ListItem button>
+                    <ListItemIcon> <SentIcon /> </ListItemIcon>
+                    <ListItemText> Sent </ListItemText>
+                </ListItem>
+
+                <ListItem button>
+                    <ListItemIcon> <DraftsIcon /> </ListItemIcon>
+                    <ListItemText> Drafts </ListItemText>
+                </ListItem>
+            </List>
+        </StyledDrawer>
+    );
+}
 
 const Menu = props => {
     const MenuWrapper = styled.div`
@@ -55,6 +111,7 @@ const Menu = props => {
                     Compose
                 </ComposeButtonContentWrapper>
             </ComposeButton>
+            <ClippedDrawer />
         </MenuWrapper>
     );
 }

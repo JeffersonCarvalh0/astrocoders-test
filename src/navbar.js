@@ -84,7 +84,7 @@ const NavBar = props => {
     const [focused, setFocused] = useState(false);
 
     return (
-        <StyledAppBar color="inherit">
+        <StyledAppBar color="inherit" position="fixed">
             <StyledToolbar>
                 <StyledMenuIconButton> <MenuIcon /> </StyledMenuIconButton>
                 <a href="/">
