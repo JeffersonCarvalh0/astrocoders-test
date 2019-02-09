@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { AppBar, IconButton, InputBase, Toolbar } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -42,18 +42,14 @@ const NavBar = props => {
 
     const SearchWrapper = styled.div`
         && {
-            background: rgba(0,0,0,0.04);
+            background: ${ props => props.focused ? "rgba(255,255,255,1)" : "rgba(0,0,0,0.04)" };
+            border: 1px solid ${ props => props.focused ? "rgba(0,0,0,0.12)" : "rgba(0,0,0,0)" };
+            box-shadow: ${ props => props.focused ? "0 1px 1px rgba(0,0,0,0.24)" : "none" };
             max-width: 720px;
             width: 100%;
-            border: 1px solid rgba(0,0,0,0);
             border-radius: 4px;
             height: 46px;
             display: flex;
-            ${ props => props.clicked && css`
-                background: rgba(255,255,255,1);
-                border: 1px solid rgba(0,0,0,0.12);
-                box-shadow: 0 1px 1px rgba(0,0,0,0.24);
-            ` };
         }
     `;
 
@@ -85,7 +81,7 @@ const NavBar = props => {
         margin-right: 12px;
     `;
 
-    const [clicked, setClicked] = useState(false);
+    const [focused, setFocused] = useState(false);
 
     return (
         <StyledAppBar color="inherit">
@@ -95,12 +91,12 @@ const NavBar = props => {
                     <LogoWrapper> <img src={logo} alt="logo"/> </LogoWrapper>
                 </a>
 
-                <SearchWrapper clicked={clicked}>
+                <SearchWrapper focused={focused}>
                     <StyledSearchIconButton> <SearchIcon /> </StyledSearchIconButton>
                     <StyledInputBase
                         placeholder="Search mail"
-                        onFocus={() => setClicked(true)}
-                        onBlur={() => setClicked(false)}
+                        onFocus={() => setFocused(true)}
+                        onBlur={() => setFocused(false)}
                     />
                     <StyledDropDownIconButton> <ArrowDropDownIcon /> </StyledDropDownIconButton>
                 </SearchWrapper>
