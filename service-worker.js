@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/astrocoders-test/precache-manifest.1a16af7133bec4509abd5573102cc0a0.js"
+  "/astrocoders-test/precache-manifest.3192d2095d28c2ba6617282f846e1aee.js"
 );
 
 workbox.clientsClaim();
