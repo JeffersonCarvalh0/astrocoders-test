@@ -1,4 +1,5 @@
-import React from 'react';
+import { map, addIndex } from 'ramda';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Drawer, Fab, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
@@ -14,6 +15,9 @@ import create from './create.png';
 const ClippedDrawer = props => {
     const StyledDrawer = styled(Drawer)`
         && {
+            padding-top: 8px;
+            max-width: 240px;
+
             & .paper {
                 border-right: none;
                 position: inherit;
@@ -21,41 +25,49 @@ const ClippedDrawer = props => {
         }
     `;
 
+    const StyledListItem = styled(ListItem)`
+        && {
+
+        }
+    `;
+
+    const [selectedList, setSelectedList] = useState([true, false, false, false, false, false]);
+    const [currentSelected, setCurrentSelected] = useState(0);
+
+    const listContent = [
+        ["Inbox", <InboxIcon />, selectedList[0]],
+        ["Starred", <StarredIcon />, selectedList[1]],
+        ["Snoozed", <SnoozedIcon />, selectedList[2]],
+        ["Important", <ImportantIcon />, selectedList[3]],
+        ["Sent", <SentIcon />, selectedList[4]],
+        ["Drafts", <DraftsIcon />, selectedList[5]],
+    ]
+
+    const updateSelected = index => {
+        const newSelectedList = selectedList.slice();
+        newSelectedList[currentSelected] = false;
+        newSelectedList[index] = true;
+        setCurrentSelected(index);
+        setSelectedList(newSelectedList);
+    }
+
     return (
         <StyledDrawer
             variant="permanent"
             classes={{ paper: "paper" }}
         >
-            <List>
-                <ListItem button>
-                    <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                    <ListItemText primary={"Inbox"}> </ListItemText>
-                </ListItem>
-
-                <ListItem button>
-                    <ListItemIcon> <StarredIcon /> </ListItemIcon>
-                    <ListItemText> Starred </ListItemText>
-                </ListItem>
-
-                <ListItem button>
-                    <ListItemIcon> <SnoozedIcon /> </ListItemIcon>
-                    <ListItemText> Snoozed </ListItemText>
-                </ListItem>
-
-                <ListItem button>
-                    <ListItemIcon> <ImportantIcon /> </ListItemIcon>
-                    <ListItemText> Important </ListItemText>
-                </ListItem>
-
-                <ListItem button>
-                    <ListItemIcon> <SentIcon /> </ListItemIcon>
-                    <ListItemText> Sent </ListItemText>
-                </ListItem>
-
-                <ListItem button>
-                    <ListItemIcon> <DraftsIcon /> </ListItemIcon>
-                    <ListItemText> Drafts </ListItemText>
-                </ListItem>
+            <List dense>
+                {
+                    addIndex(map)(([ text, icon, selected ], index) => (
+                        <ListItem button key={text} selected={selected}
+                            classes={{ selected: 'selected' }}
+                            onClick={() => updateSelected(index)}
+                        >
+                            <ListItemIcon> {icon} </ListItemIcon>
+                            <ListItemText> {text} </ListItemText>
+                        </ListItem>
+                    ), listContent)
+                }
             </List>
         </StyledDrawer>
     );
