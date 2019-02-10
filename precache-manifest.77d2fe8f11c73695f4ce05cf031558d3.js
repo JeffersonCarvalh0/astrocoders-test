@@ -4,15 +4,15 @@ self.__precacheManifest = [
     "url": "/astrocoders-test/static/js/runtime~main.e5ce03d6.js"
   },
   {
-    "revision": "21f8ead8d799146f2f25",
-    "url": "/astrocoders-test/static/js/main.21f8ead8.chunk.js"
+    "revision": "45f6b5248ba645f455ef",
+    "url": "/astrocoders-test/static/js/main.45f6b524.chunk.js"
   },
   {
     "revision": "1c7c81152dab1f47d7ce",
     "url": "/astrocoders-test/static/js/1.1c7c8115.chunk.js"
   },
   {
-    "revision": "a2815bc9fa01811fcafccbbfde02e32d",
+    "revision": "5216df8ac8290adfaa8b09449f238348",
     "url": "/astrocoders-test/index.html"
   }
 ];
