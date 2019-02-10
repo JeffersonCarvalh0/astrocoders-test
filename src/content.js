@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Divider } from '@material-ui/core';
+import { Checkbox, Divider, IconButton } from '@material-ui/core';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import MoreIcon from '@material-ui/icons/MoreVert';
 
 const ContentWrapper = styled.div`
     display: inline;
@@ -16,10 +19,43 @@ const Panel = styled.div`
     height: 48px;
 `
 
+const StyledCheckbox = styled(Checkbox)`
+    && {
+        padding-right: 0px;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+`;
+
+const StyledArrowIconButton = styled(IconButton)`
+    && {
+        padding-left: 0px;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+`;
+
 const Content = props => {
     return (
         <ContentWrapper>
-            <Panel></Panel>
+            <Panel>
+                <StyledCheckbox color="default" />
+                <StyledArrowIconButton>
+                    <ArrowDropDownIcon />
+                </StyledArrowIconButton>
+
+                <IconButton>
+                    <RefreshIcon />
+                </IconButton>
+
+                <IconButton>
+                    <MoreIcon />
+                </IconButton>
+            </Panel>
             <Divider />
         </ContentWrapper>
     );
