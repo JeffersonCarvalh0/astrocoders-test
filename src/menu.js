@@ -15,7 +15,7 @@ import create from './create.png';
 const ClippedDrawer = props => {
     const StyledDrawer = styled(Drawer)`
         && {
-            padding-top: 8px;
+            padding-top: 10px;
             max-width: 240px;
 
             & .paper {
@@ -27,7 +27,8 @@ const ClippedDrawer = props => {
 
     const StyledListItem = styled(ListItem)`
         && {
-
+            height: 32px;
+            border-radius: 0px 16px 16px 0px;
         }
     `;
 
@@ -59,13 +60,13 @@ const ClippedDrawer = props => {
             <List dense>
                 {
                     addIndex(map)(([ text, icon, selected ], index) => (
-                        <ListItem button key={text} selected={selected}
+                        <StyledListItem button key={text} selected={selected}
                             classes={{ selected: 'selected' }}
                             onClick={() => updateSelected(index)}
                         >
                             <ListItemIcon> {icon} </ListItemIcon>
                             <ListItemText> {text} </ListItemText>
-                        </ListItem>
+                        </StyledListItem>
                     ), listContent)
                 }
             </List>
