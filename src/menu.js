@@ -18,7 +18,7 @@ const theme = createMuiTheme({ typography: { useNextVariants: true } });
 const MenuWrapper = styled.div`
     && {
         margin-top: 56px;
-        width: 256px;
+        max-width: 256px;
         display: inline;
     }
 `;

@@ -7,7 +7,8 @@ const ContentWrapper = styled.div`
     display: inline;
     width: 100%;
     height: 100%;
-    margin-top: 64px;
+    margin-top: 55px;
+    padding: 0px 16px 0px 16px;
 `;
 
 const Panel = styled.div`

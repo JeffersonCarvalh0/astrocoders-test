@@ -16,7 +16,7 @@ const App = props => {
         <MainDiv>
             <NavBar menuToggle={menuToggle} setMenuToggle={setMenuToggle}/>
             <Menu menuToggle={menuToggle}/>
-            {/* <Content /> */}
+            <Content />
         </MainDiv>
     );
 }
