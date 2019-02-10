@@ -29,6 +29,9 @@ const ClippedDrawer = props => {
         && {
             height: 32px;
             border-radius: 0px 16px 16px 0px;
+            letter-spacing: .2px;
+            font-size: 0.875rem;
+            font-weight: ${ props => props.selected ? "bold" : "normal" };
         }
     `;
 
@@ -61,11 +64,10 @@ const ClippedDrawer = props => {
                 {
                     addIndex(map)(([ text, icon, selected ], index) => (
                         <StyledListItem button key={text} selected={selected}
-                            classes={{ selected: 'selected' }}
                             onClick={() => updateSelected(index)}
                         >
                             <ListItemIcon> {icon} </ListItemIcon>
-                            <ListItemText> {text} </ListItemText>
+                            <ListItemText disableTypography> {text} </ListItemText>
                         </StyledListItem>
                     ), listContent)
                 }
@@ -99,7 +101,6 @@ const Menu = props => {
             display: flex;
             margin-right: 25px;
             align-items: center;
-            font-size: .875rem;
             font-weight: 500;
             text-transform: none;
         }
