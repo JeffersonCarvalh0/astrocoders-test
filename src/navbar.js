@@ -12,81 +12,83 @@ import PersonIcon from '@material-ui/icons/Person';
 
 import logo from './logo.png';
 
-const NavBar = props => {
-    const StyledAppBar = styled(AppBar)`
-        && {
-            box-shadow: none;
-            border: 0.1px solid #eeeeee;
-        }
-    `;
+const StyledAppBar = styled(AppBar)`
+    && {
+        box-shadow: none;
+        border: 0.1px solid #eeeeee;
+    }
+`;
 
-    const StyledToolbar = styled(Toolbar)`
-        && {
-            padding: 0;
-        }
-    `;
+const StyledToolbar = styled(Toolbar)`
+    && {
+        padding: 0;
+    }
+`;
 
-    const LogoWrapper = styled.div`
-        && {
-            margin-left: 4px;
-            margin-top: 4px;
-            margin-right: 83px;
-        }
-    `;
+const LogoWrapper = styled.div`
+    && {
+        margin-left: 4px;
+        margin-top: 4px;
+        margin-right: 83px;
+    }
+`;
 
-    const StyledMenuIconButton = styled(IconButton)`
-        && {
-            margin-left: 12px;
-        }
-    `;
+const StyledMenuIconButton = styled(IconButton)`
+    && {
+        margin-left: 12px;
+    }
+`;
 
-    const SearchWrapper = styled.div`
-        && {
-            background: ${ props => props.focused ? "rgba(255,255,255,1)" : "rgba(0,0,0,0.04)" };
-            border: 1px solid ${ props => props.focused ? "rgba(0,0,0,0.12)" : "rgba(0,0,0,0)" };
-            box-shadow: ${ props => props.focused ? "0 1px 1px rgba(0,0,0,0.24)" : "none" };
-            max-width: 720px;
-            width: 100%;
-            border-radius: 4px;
-            height: 46px;
-            display: flex;
-        }
-    `;
-
-    const StyledInputBase = styled(InputBase)`
-        && {
-            padding: 7px 16px 7px 3px;
-            width: 100%;
-        }
-    `;
-
-    const StyledSearchIconButton = styled(IconButton)`
-        && {
-            margin: 4px 4px 4px 6px;
-            padding: 7px;
-        }
-    `;
-
-    const StyledDropDownIconButton = styled(IconButton)`
-        && {
-            margin-right: 8px;
-            padding: 7px;
-        }
-    `;
-
-    const MiscWrapper = styled.div`
-        width: 40%;
+const SearchWrapper = styled.div`
+    && {
+        background: ${ props => props.focused ? "rgba(255,255,255,1)" : "rgba(0,0,0,0.04)" };
+        border: 1px solid ${ props => props.focused ? "rgba(0,0,0,0.12)" : "rgba(0,0,0,0)" };
+        box-shadow: ${ props => props.focused ? "0 1px 1px rgba(0,0,0,0.24)" : "none" };
+        transition: background 100ms ease-in,width 100ms ease-out;
+        max-width: 720px;
+        width: 100%;
+        border-radius: 4px;
+        height: 46px;
         display: flex;
-        flex-direction: row-reverse;
-        margin-right: 12px;
-    `;
+    }
+`;
 
+const StyledInputBase = styled(InputBase)`
+    && {
+        padding: 7px 16px 7px 3px;
+        width: 100%;
+    }
+`;
+
+const StyledSearchIconButton = styled(IconButton)`
+    && {
+        margin: 4px 4px 4px 6px;
+        padding: 7px;
+    }
+`;
+
+const StyledDropDownIconButton = styled(IconButton)`
+    && {
+        margin-right: 8px;
+        padding: 7px;
+    }
+`;
+
+const MiscWrapper = styled.div`
+    width: 40%;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 12px;
+`;
+
+const NavBar = props => {
     const [focused, setFocused] = useState(false);
+    const handleToggle = () => props.setMenuToggle(!props.menuToggle);
 
     return (
         <StyledAppBar color="inherit" position="fixed">
             <StyledToolbar>
-                <StyledMenuIconButton> <MenuIcon /> </StyledMenuIconButton>
+                <StyledMenuIconButton onClick={handleToggle}> <MenuIcon /> </StyledMenuIconButton>
                 <a href="/">
                     <LogoWrapper> <img src={logo} alt="logo"/> </LogoWrapper>
                 </a>
