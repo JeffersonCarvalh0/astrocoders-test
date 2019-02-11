@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -45,13 +45,25 @@ const StyledArrowIconButton = styled(IconButton)`
 
 const StyledExpansionPanel = styled(ExpansionPanel)`
     && {
-        background-color: rgba(242,245,245,0.8);
+        background-color: ${ props => props.checked ? "#c2dbff" : "rgba(242,245,245,0.8)" };
 
         &:hover {
             box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
                 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
             z-index: 1;
         }
+
+        & .expanded {
+            box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
+                0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+            z-index: 1;
+        }
+    }
+`;
+
+const StyledExpansionPanelDetails = styled(ExpansionPanelDetails)`
+    && {
+        background-color: #fff;
     }
 `;
 
@@ -81,6 +93,29 @@ const SummaryCenterItem = styled(StyledTypography)`
     }
 `;
 
+const Tweet = props => {
+    const [checked, setChecked] = useState(false);
+
+    return (
+        <StyledExpansionPanel elevation={0} checked={checked} classes={{ root: 'root', expanded: 'expanded' }}>
+            <StyledExpansionPanelSummary classes={{ content: 'content' }}>
+                <Checkbox
+                    color="default"
+                    onClick={ e => { e.stopPropagation(); setChecked(!checked); } }
+                />
+                <SummaryCenterItem> { props.author } </SummaryCenterItem>
+                <SummaryCenterItem noWrap> { props.content } </SummaryCenterItem>
+                <StyledTypography> { props.date } </StyledTypography>
+            </StyledExpansionPanelSummary>
+            <StyledExpansionPanelDetails>
+                <Typography>
+                    { props.content }
+                </Typography>
+            </StyledExpansionPanelDetails>
+        </StyledExpansionPanel>
+    );
+}
+
 const Content = props => {
     return (
         <ContentWrapper>
@@ -102,24 +137,11 @@ const Content = props => {
             <Divider />
 
             <div>
-                <StyledExpansionPanel elevation={0}>
-                    <StyledExpansionPanelSummary classes={{ content: 'content' }}>
-                        <Checkbox
-                            color="default"
-                            onClick={ e => e.stopPropagation() }
-                        />
-                        <SummaryCenterItem> Tweet Author </SummaryCenterItem>
-                        <SummaryCenterItem noWrap> Tweet Content </SummaryCenterItem>
-                        <StyledTypography> Tweet date </StyledTypography>
-                    </StyledExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        <Typography>
-                            Full tweet here
-                        </Typography>
-                    </ExpansionPanelDetails>
-                </StyledExpansionPanel>
+                <Tweet author="Tweet author" content="Tweet content" date="Tweet date"/>
+                <Tweet author="Tweet author" content="Tweet content" date="Tweet date"/>
+                <Tweet author="Tweet author" content="Tweet content" date="Tweet date"/>
+                <Tweet author="Tweet author" content="Tweet content" date="Tweet date"/>
             </div>
-
         </ContentWrapper>
     );
 }
