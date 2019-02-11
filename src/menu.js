@@ -99,25 +99,13 @@ const StyledListItem = styled(ListItem)`
 `;
 
 const ClippedDrawer = props => {
-    const [selectedList, setSelectedList] = useState([true, false, false, false, false, false]);
     const [currentSelected, setCurrentSelected] = useState(0);
 
     const listContent = [
-        ["Inbox", <InboxIcon />, selectedList[0]],
-        ["Starred", <StarredIcon />, selectedList[1]],
-        ["Snoozed", <SnoozedIcon />, selectedList[2]],
-        ["Important", <ImportantIcon />, selectedList[3]],
-        ["Sent", <SentIcon />, selectedList[4]],
-        ["Drafts", <DraftsIcon />, selectedList[5]],
+        ["Inbox", <InboxIcon />], ["Starred", <StarredIcon />],
+        ["Snoozed", <SnoozedIcon />], ["Important", <ImportantIcon />],
+        ["Sent", <SentIcon />], ["Drafts", <DraftsIcon />],
     ]
-
-    const updateSelected = index => {
-        const newSelectedList = selectedList.slice();
-        newSelectedList[currentSelected] = false;
-        newSelectedList[index] = true;
-        setCurrentSelected(index);
-        setSelectedList(newSelectedList);
-    }
 
     return (
         <ThemeProvider theme={theme}>
@@ -129,8 +117,10 @@ const ClippedDrawer = props => {
                 <List dense>
                     {
                         addIndex(map)(([ text, icon, selected ], index) => (
-                            <StyledListItem button key={text} selected={selected} open={props.open}
-                                onClick={() => updateSelected(index)}
+                            <StyledListItem
+                                button key={text}
+                                selected={currentSelected === index} open={props.open}
+                                onClick={() => setCurrentSelected(index)}
                             >
                                 <ListItemIcon> {icon} </ListItemIcon>
                                 <ListItemText disableTypography> {text} </ListItemText>
