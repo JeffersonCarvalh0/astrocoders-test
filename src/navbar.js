@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import styled from 'styled-components';
 
 import { AppBar, IconButton, InputBase, Toolbar } from '@material-ui/core';

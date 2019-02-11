@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Checkbox, Divider, IconButton } from '@material-ui/core';
+import {
+    Checkbox, Divider, ExpansionPanel, ExpansionPanelSummary,
+    ExpansionPanelDetails, IconButton, Typography
+} from '@material-ui/core';
+
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -39,6 +43,44 @@ const StyledArrowIconButton = styled(IconButton)`
     }
 `;
 
+const StyledExpansionPanel = styled(ExpansionPanel)`
+    && {
+        background-color: rgba(242,245,245,0.8);
+
+        &:hover {
+            box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
+                0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+            z-index: 1;
+        }
+    }
+`;
+
+const StyledExpansionPanelSummary = styled(ExpansionPanelSummary)`
+    && {
+        min-height: 0px;
+        height: 20px;
+        padding: 10px 0px 10px 0px;
+
+        & .content {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+`
+
+const StyledTypography = styled(Typography)`
+    && {
+        margin: 20px;
+    }
+`;
+
+const SummaryCenterItem = styled(StyledTypography)`
+    && {
+        margin-right: auto;
+        max-width: 600px;
+    }
+`;
+
 const Content = props => {
     return (
         <ContentWrapper>
@@ -56,7 +98,28 @@ const Content = props => {
                     <MoreIcon />
                 </IconButton>
             </Panel>
+
             <Divider />
+
+            <div>
+                <StyledExpansionPanel elevation={0}>
+                    <StyledExpansionPanelSummary classes={{ content: 'content' }}>
+                        <Checkbox
+                            color="default"
+                            onClick={ e => e.stopPropagation() }
+                        />
+                        <SummaryCenterItem> Tweet Author </SummaryCenterItem>
+                        <SummaryCenterItem noWrap> Tweet Content </SummaryCenterItem>
+                        <StyledTypography> Tweet date </StyledTypography>
+                    </StyledExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                        <Typography>
+                            Full tweet here
+                        </Typography>
+                    </ExpansionPanelDetails>
+                </StyledExpansionPanel>
+            </div>
+
         </ContentWrapper>
     );
 }
