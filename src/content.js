@@ -1,3 +1,4 @@
+import { map } from 'ramda'
 import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 
@@ -162,7 +163,14 @@ const Content = props => {
 
             <Divider />
 
-            <div> { props.tweets } </div>
+            <div>
+                {
+                    map(({ author, text, date, id }) => {
+                        date = new Date(date);
+                        return <Tweet author={author} content={text} date={`${date.getHours()}:${date.getMinutes()}`} key={id} />;
+                    }, props.tweets)
+                }
+            </div>
         </ContentWrapper>
     );
 }

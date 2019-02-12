@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { map } from 'ramda';
 import styled from 'styled-components';
 
 import NavBar from './navbar';
 import Menu from './menu';
-import Content, { Tweet } from './content';
+import Content from './content';
 
 const MainDiv = styled.div`
     display: flex;
@@ -14,18 +13,15 @@ const MainDiv = styled.div`
 const App = props => {
     const [menuToggle, setMenuToggle] = useState(true);
     const [tweets, setTweets] = useState([])
+    const [filteredTweets, setFilteredTweets] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
 
     const fetchData = async () => {
         setRefreshing(true);
         const result = await axios('https://shielded-springs-96505.herokuapp.com');
-
-        setTweets(map(({ author, text, date, id }) => {
-            date = new Date(date);
-            return <Tweet author={author} content={text} date={`${date.getHours()}:${date.getMinutes()}`} key={id} />;
-        }, result.data));
-
+        setTweets(result.data);
+        setFilteredTweets(result.data);
         setRefreshing(false)
     }
     useEffect(() => { fetchData(); }, [refresh]);
@@ -36,11 +32,11 @@ const App = props => {
                 menuToggle={menuToggle}
                 setMenuToggle={setMenuToggle}
                 tweets={tweets}
-                setTweets={setTweets}
+                setTweets={setFilteredTweets}
             />
             <Menu menuToggle={menuToggle}/>
             <Content
-                tweets={tweets}
+                tweets={filteredTweets}
                 refreshing={refreshing}
                 refresh={refresh}
                 setRefresh={setRefresh}

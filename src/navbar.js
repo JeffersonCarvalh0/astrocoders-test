@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { filter } from 'ramda';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { AppBar, IconButton, InputBase, Toolbar } from '@material-ui/core';
@@ -82,7 +83,17 @@ const MiscWrapper = styled.div`
 
 const NavBar = props => {
     const [focused, setFocused] = useState(false);
+    const [search, setSearch] = useState("");
+
     const handleToggle = () => props.setMenuToggle(!props.menuToggle);
+    const handleChange = event => setSearch(event.target.value.toLowerCase());
+
+    const searchFilter = () => {
+        props.setTweets(filter((tweet) => (
+            tweet.text.toLowerCase().includes(search) || tweet.author.toLowerCase().includes(search)
+        ), props.tweets));
+    }
+    useEffect(searchFilter, [search]);
 
     return (
         <StyledAppBar color="inherit" position="fixed">
@@ -98,6 +109,7 @@ const NavBar = props => {
                         placeholder="Search mail"
                         onFocus={() => setFocused(true)}
                         onBlur={() => setFocused(false)}
+                        onChange={handleChange}
                     />
                     <StyledDropDownIconButton> <ArrowDropDownIcon /> </StyledDropDownIconButton>
                 </SearchWrapper>
@@ -108,7 +120,6 @@ const NavBar = props => {
                     <IconButton> <AppsIcon /> </IconButton>
                 </MiscWrapper>
             </StyledToolbar>
-
         </StyledAppBar>
     );
 }
