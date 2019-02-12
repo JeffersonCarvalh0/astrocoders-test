@@ -151,7 +151,7 @@ const Content = props => {
 
     const fetchData = async () => {
         setRefreshing(true);
-        const result = await axios('http://shielded-springs-96505.herokuapp.com');
+        const result = await axios('https://shielded-springs-96505.herokuapp.com');
         setData(result.data);
         setRefreshing(false)
     }
