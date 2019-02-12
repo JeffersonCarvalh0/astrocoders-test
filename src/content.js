@@ -15,9 +15,9 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 const theme = createMuiTheme({ typography: { useNextVariants: true } });
 
 const ContentWrapper = styled.div`
-    display: inline;
-    width: 100%;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-right: auto;
     margin-top: 55px;
     padding: 0px 16px 0px 16px;
 `;

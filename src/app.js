@@ -8,6 +8,7 @@ import Content from './content';
 
 const MainDiv = styled.div`
     display: flex;
+    flex-shrink: 0;
 `;
 
 const App = props => {
