@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import axios from 'axios';
+import { map } from 'ramda';
+import React, { useState, useEffect } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
 
 import {
     Checkbox, Divider, ExpansionPanel, ExpansionPanelSummary,
-    ExpansionPanelDetails, IconButton, Typography
+    ExpansionPanelDetails, Modal, IconButton, Typography
 } from '@material-ui/core';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import MoreIcon from '@material-ui/icons/MoreVert';
+
+const theme = createMuiTheme({ typography: { useNextVariants: true } });
 
 const ContentWrapper = styled.div`
     display: inline;
@@ -17,6 +22,22 @@ const ContentWrapper = styled.div`
     margin-top: 55px;
     padding: 0px 16px 0px 16px;
 `;
+
+const ModalDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+    background-color: ${ props => props.theme.palette.background.paper };
+    box-shadow: ${ props => props.theme.shadows[5] };
+    padding: ${ props => theme.spacing.unit * 4 };
+    outline: none;
+`
 
 const Panel = styled.div`
     display: flex;
@@ -86,10 +107,17 @@ const StyledTypography = styled(Typography)`
     }
 `;
 
+const SummaryLeftItem = styled(StyledTypography)`
+    && {
+        width: 140px;
+        margin-right: auto;
+    }
+`
+
 const SummaryCenterItem = styled(StyledTypography)`
     && {
         margin-right: auto;
-        max-width: 600px;
+        max-width: 400px;
     }
 `;
 
@@ -103,7 +131,7 @@ const Tweet = props => {
                     color="default"
                     onClick={ e => { e.stopPropagation(); setChecked(!checked); } }
                 />
-                <SummaryCenterItem> { props.author } </SummaryCenterItem>
+                <SummaryLeftItem> { props.author } </SummaryLeftItem>
                 <SummaryCenterItem noWrap> { props.content } </SummaryCenterItem>
                 <StyledTypography> { props.date } </StyledTypography>
             </StyledExpansionPanelSummary>
@@ -117,15 +145,34 @@ const Tweet = props => {
 }
 
 const Content = props => {
+    const [data, setData] = useState([])
+    const [refresh, setRefresh] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const fetchData = async () => {
+        setRefreshing(true);
+        const result = await axios('http://shielded-springs-96505.herokuapp.com');
+        setData(result.data);
+        setRefreshing(false)
+    }
+    useEffect(() => { fetchData(); }, [refresh]);
+
     return (
         <ContentWrapper>
+            <ThemeProvider theme={theme}>
+                <Modal open={refreshing}>
+                    <ModalDiv>
+                        <Typography variant="h6"> Loading... </Typography>
+                    </ModalDiv>
+                </Modal>
+            </ThemeProvider>
             <Panel>
                 <StyledCheckbox color="default" />
                 <StyledArrowIconButton>
                     <ArrowDropDownIcon />
                 </StyledArrowIconButton>
 
-                <IconButton>
+                <IconButton onClick={() => setRefresh(!refresh)}>
                     <RefreshIcon />
                 </IconButton>
 
@@ -137,10 +184,12 @@ const Content = props => {
             <Divider />
 
             <div>
-                <Tweet author="Tweet author" content="Tweet content" date="Tweet date"/>
-                <Tweet author="Tweet author" content="Tweet content" date="Tweet date"/>
-                <Tweet author="Tweet author" content="Tweet content" date="Tweet date"/>
-                <Tweet author="Tweet author" content="Tweet content" date="Tweet date"/>
+                {
+                    map(({ author, text, date, id }) => {
+                        date = new Date(date);
+                        return <Tweet author={author} content={text} date={`${date.getHours()}:${date.getMinutes()}`} key={id} />;
+                    }, data)
+                }
             </div>
         </ContentWrapper>
     );

@@ -116,10 +116,10 @@ const ClippedDrawer = props => {
             >
                 <List dense>
                     {
-                        addIndex(map)(([ text, icon, selected ], index) => (
+                        addIndex(map)(([ text, icon ], index) => (
                             <StyledListItem
-                                button key={text}
-                                selected={currentSelected === index} open={props.open}
+                                button key={text} open={props.open}
+                                selected={currentSelected === index}
                                 onClick={() => setCurrentSelected(index)}
                             >
                                 <ListItemIcon> {icon} </ListItemIcon>
