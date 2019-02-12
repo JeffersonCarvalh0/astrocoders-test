@@ -1,6 +1,4 @@
-import axios from 'axios';
-import { map } from 'ramda';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 
 import {
@@ -73,12 +71,6 @@ const StyledExpansionPanel = styled(ExpansionPanel)`
                 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
             z-index: 1;
         }
-
-        & .expanded {
-            box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
-                0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-            z-index: 1;
-        }
     }
 `;
 
@@ -121,8 +113,9 @@ const SummaryCenterItem = styled(StyledTypography)`
     }
 `;
 
-const Tweet = props => {
+export const Tweet = props => {
     const [checked, setChecked] = useState(false);
+
 
     return (
         <StyledExpansionPanel elevation={0} checked={checked} classes={{ root: 'root', expanded: 'expanded' }}>
@@ -136,31 +129,17 @@ const Tweet = props => {
                 <StyledTypography> { props.date } </StyledTypography>
             </StyledExpansionPanelSummary>
             <StyledExpansionPanelDetails>
-                <Typography>
-                    { props.content }
-                </Typography>
+                <Typography> { props.content } </Typography>
             </StyledExpansionPanelDetails>
         </StyledExpansionPanel>
     );
 }
 
 const Content = props => {
-    const [data, setData] = useState([])
-    const [refresh, setRefresh] = useState(false);
-    const [refreshing, setRefreshing] = useState(false);
-
-    const fetchData = async () => {
-        setRefreshing(true);
-        const result = await axios('https://shielded-springs-96505.herokuapp.com');
-        setData(result.data);
-        setRefreshing(false)
-    }
-    useEffect(() => { fetchData(); }, [refresh]);
-
     return (
         <ContentWrapper>
             <ThemeProvider theme={theme}>
-                <Modal open={refreshing}>
+                <Modal open={props.refreshing}>
                     <ModalDiv>
                         <Typography variant="h6"> Loading... </Typography>
                     </ModalDiv>
@@ -172,7 +151,7 @@ const Content = props => {
                     <ArrowDropDownIcon />
                 </StyledArrowIconButton>
 
-                <IconButton onClick={() => setRefresh(!refresh)}>
+                <IconButton onClick={() => props.setRefresh(!props.refresh)}>
                     <RefreshIcon />
                 </IconButton>
 
@@ -183,14 +162,7 @@ const Content = props => {
 
             <Divider />
 
-            <div>
-                {
-                    map(({ author, text, date, id }) => {
-                        date = new Date(date);
-                        return <Tweet author={author} content={text} date={`${date.getHours()}:${date.getMinutes()}`} key={id} />;
-                    }, data)
-                }
-            </div>
+            <div> { props.tweets } </div>
         </ContentWrapper>
     );
 }
