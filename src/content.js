@@ -17,7 +17,7 @@ const theme = createMuiTheme({ typography: { useNextVariants: true } });
 const ContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    padding-right: auto;
+    max-width: none;
     margin-top: 55px;
     padding: 0px 16px 0px 16px;
 `;
@@ -116,7 +116,6 @@ const SummaryCenterItem = styled(StyledTypography)`
 
 export const Tweet = props => {
     const [checked, setChecked] = useState(false);
-
 
     return (
         <StyledExpansionPanel elevation={0} checked={checked} classes={{ root: 'root', expanded: 'expanded' }}>
