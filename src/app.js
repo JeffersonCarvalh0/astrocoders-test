@@ -37,6 +37,7 @@ const App = props => {
             />
             <Menu menuToggle={menuToggle}/>
             <Content
+                menuToggle={menuToggle}
                 tweets={filteredTweets}
                 refreshing={refreshing}
                 refresh={refresh}

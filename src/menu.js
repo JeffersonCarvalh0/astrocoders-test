@@ -17,9 +17,10 @@ const theme = createMuiTheme({ typography: { useNextVariants: true } });
 
 const MenuWrapper = styled.div`
     && {
+        position: fixed;
+        display: inline;
         margin-top: 56px;
         max-width: 256px;
-        display: inline;
     }
 `;
 

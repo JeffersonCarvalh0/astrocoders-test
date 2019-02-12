@@ -104,7 +104,7 @@ const NavBar = props => {
     useEffect(searchFilter, [search]);
 
     return (
-        <StyledAppBar color="inherit">
+        <StyledAppBar color="inherit" position="fixed">
             <StyledToolbar>
                 <StyledMenuIconButton onClick={handleToggle}> <MenuIcon /> </StyledMenuIconButton>
                 <a href="/">

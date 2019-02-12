@@ -19,6 +19,7 @@ const ContentWrapper = styled.div`
     flex-direction: column;
     max-width: none;
     margin-top: 55px;
+    margin-left: ${ props => props.open ? "240px" : "57px" };
     padding: 0px 16px 0px 16px;
 `;
 
@@ -137,7 +138,7 @@ export const Tweet = props => {
 
 const Content = props => {
     return (
-        <ContentWrapper>
+        <ContentWrapper open={props.menuToggle}>
             <ThemeProvider theme={theme}>
                 <Modal open={props.refreshing}>
                     <ModalDiv>
