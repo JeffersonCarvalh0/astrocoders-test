@@ -9,6 +9,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import AppsIcon from '@material-ui/icons/Apps';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import PersonIcon from '@material-ui/icons/Person';
+import CloseIcon from '@material-ui/icons/Close';
 
 import logo from './logo.png';
 
@@ -67,9 +68,16 @@ const StyledSearchIconButton = styled(IconButton)`
     }
 `;
 
+const StyledCloseIconButton = styled(IconButton)`
+    && {
+        margin: 4px 0px 4px 6px;
+        padding: 7px;
+    }
+`
+
 const StyledDropDownIconButton = styled(IconButton)`
     && {
-        margin-right: 8px;
+        margin: 4px 8px 4px 0px;
         padding: 7px;
     }
 `;
@@ -110,7 +118,14 @@ const NavBar = props => {
                         onFocus={() => setFocused(true)}
                         onBlur={() => setFocused(false)}
                         onChange={handleChange}
+                        value={search}
                     />
+                    {
+                        search !== "" &&
+                        <StyledCloseIconButton onClick={() => setSearch("")}>
+                            <CloseIcon />
+                        </StyledCloseIconButton>
+                    }
                     <StyledDropDownIconButton> <ArrowDropDownIcon /> </StyledDropDownIconButton>
                 </SearchWrapper>
 
