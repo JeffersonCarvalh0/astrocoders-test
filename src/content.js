@@ -17,7 +17,6 @@ const theme = createMuiTheme({ typography: { useNextVariants: true } });
 const ContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    max-width: none;
     margin-top: 55px;
     margin-left: ${ props => props.open ? "240px" : "57px" };
     padding: 0px 16px 0px 16px;
