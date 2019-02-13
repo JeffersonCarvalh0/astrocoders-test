@@ -18,6 +18,7 @@ const ContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 55px;
+    @media (min-width: 750px) { width: 100%; }
     margin-left: ${ props => props.open ? "240px" : "57px" };
     padding: 0px 16px 0px 16px;
 `;
