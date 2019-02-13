@@ -94,11 +94,11 @@ const NavBar = props => {
     const [search, setSearch] = useState("");
 
     const handleToggle = () => props.setMenuToggle(!props.menuToggle);
-    const handleChange = event => setSearch(event.target.value.toLowerCase());
+    const handleChange = event => setSearch(event.target.value);
 
     const searchFilter = () => {
         props.setTweets(filter((tweet) => (
-            tweet.text.toLowerCase().includes(search) || tweet.author.toLowerCase().includes(search)
+            tweet.text.toLowerCase().includes(search.toLowerCase()) || tweet.author.toLowerCase().includes(search.toLowerCase())
         ), props.tweets));
     }
     useEffect(searchFilter, [search]);
